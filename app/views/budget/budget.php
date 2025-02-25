@@ -1,6 +1,7 @@
 <?php
 // Fetching budgets from the database
     require_once __DIR__ . '/../../models/BudgetModel.php';
+    require_once __DIR__ . '/../../controllers/BudgetController.php';
     require_once __DIR__ . '/../../../core/Database.php';
 ?>
 
@@ -10,7 +11,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Budgets</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
+    <link rel="stylesheet" href="../assets/css/budget.css">
 </head>
 <body>
     <div class="container">
@@ -50,19 +51,19 @@
             <form action="/budget/update" method="POST">
                 <label for="budget_id">Select Budget</label>
                 <select name="id" id="budget_id" required>
-                    <option value="">--Select a Budget--</option>
-                    <?php foreach ($budget->getBudgetsByUserId as $budget) : ?>
+                    <option value="">  Select a Budget  </option>
+                    <?php foreach ($budgets as $budget) : ?>
                         <option value="<?php echo $budget['id']; ?>">
                             <?php echo $budget['name']; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
-
+                
                 <label for="update_amount">Updated Amount</label>
-                <input type="number" id="update_amount" name="update_amount" step="0.01" required>
+                <input type="number" id="update_amount" name="amount" step="0.01" required>
 
                 <label for="update_category">Updated Category</label>
-                <input type="text" id="update_category" name="update_category" required>
+                <input type="text" id="update_category" name="category" required>
 
                 <button type="submit">Update Budget</button>
             </form>
@@ -73,11 +74,11 @@
             <h2>Delete Budget</h2>
             <form action="/budget/delete" method="POST">
                 <label for="delete_budget_id">Select Budget to Delete</label>
-                <select name="delete_budget_id" id="delete_budget_id" required>
-                    <option value="">--Select a Budget--</option>
-                    <?php foreach ($budget as $budget) : ?>
+                <select name="id" id="delete_budget_id" required>
+                    <option value="">  Select a Budget  </option>
+                    <?php foreach ($budgets as $budget) : ?>
                         <option value="<?php echo $budget['id']; ?>">
-                            <?php echo $budget['name']; ?>
+                            <?php echo $budget['id'] . "--" .$budget['name']; ?>
                         </option>
                     <?php endforeach; ?>
                 </select>
@@ -86,17 +87,54 @@
             </form>
         </section>
 
-        <!-- View Budget Form (Dropdown) -->
+        <!-- View Budget Form (Table) -->
         <section>
             <h2>View Budget</h2>
-            <form action="/budget/view" method="POST">
-                <label for="view_budget_id">Select Budget to View</label>
-                
-                <input type="text" id="view_budget_id" name="name" required>
-                
-                
-                <button type="submit">View Budget</button>
-            </form>
+            <?php if (!empty($budgets) && is_array($budgets)): ?>
+            <table>
+                    <tr>
+                        <th>ID</th>
+                        <th>Budget Name</th>
+                        <th>Amount</th>
+                        <th>Category</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Time created</th>
+                        <th>who created</th>
+                    </tr>
+                    <?php foreach ($budgets as $budget): ?>
+                    <tr>
+                        <th>
+                            <?php echo htmlspecialchars($budget['id']); ?>
+                        </th>
+                        <th>
+                            <?php echo htmlspecialchars($budget['name']); ?>
+                        </th> 
+                        <th>
+                            <?php echo htmlspecialchars($budget['amount']); ?>
+                        </th>
+                        <th>
+                            <?php echo htmlspecialchars($budget['category']); ?>
+                        </th>
+                        <th>
+                            <?php echo htmlspecialchars($budget['start_date']); ?>
+                        </th>
+                        <th>
+                            <?php echo htmlspecialchars($budget['end_date']); ?>
+                        </th>
+                        <th>
+                            <?php echo  date('Y-m-d H:i:s', strtotime($budget['created_at'])) ; ?>
+                        </th>
+                        <th>
+                            <?php echo htmlspecialchars($budget['user_id']); ?>
+                        </th>
+                                                                                          
+                    </tr>
+                    <?php endforeach; ?>
+            </table>
+            <?php else: ?>
+                        <li>No budgets found.</li>
+            <?php endif; ?>
         </section>
     </div>
 </body>

@@ -1,11 +1,15 @@
 
 <?php
+    session_start();
 
     require_once __DIR__ . '/../models/BudgetModel.php';
 
     class BudgetController {
         
         public function index() {
+            $budgetModel = new BudgetModel();
+            $budgets = $budgetModel->getBudgets();
+
             require_once __DIR__ . '/../views/budget/budget.php';
         }
 
@@ -33,18 +37,18 @@
                     exit;
                 } else {
                     die("Failed to create budget");
-                }
+                }     
             }
         }
 
-        public function update($id, $name, $amount, $category, $start_date, $end_date) {
+        public function update() {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $id = $_POST['id'] ?? '';
                 $name = $_POST['name'] ?? '';
-                $amount = $_POST['amount'] ?? '';
+                $amount = $_POST['amount'] ?? 0;
                 $category = $_POST['category'] ?? '';
-                $start_date = $_POST['start_date'] ?? '';
-                $end_date = $_POST['end_date'] ?? '';
+                // $start_date = $_POST['start_date'] ?? '';
+                // $end_date = $_POST['end_date'] ?? '';
 
 
                 if (empty($id)) {
@@ -54,7 +58,7 @@
 
                 $budget = new BudgetModel();
 
-                if ($budget->updateBudget($id, $name, $amount, $category)) {
+                if ($budget->updateBudget($id, $amount, $category)) {
                     header("Location: /budgets");
                     exit;
                 } else {
@@ -83,16 +87,16 @@
             }
         }
 
-        public function view() {
+        // public function view() {
             
-            $budget = new BudgetModel();
-            $name = $_POST['name']?? null; // Ensure user is logged in
-            if ($name) {
-                echo $budget->showBudgetTable($name);
-            } else {
-                echo "<p>Please log in to view your budgets.</p>";
-            }
-        }
+        //     $budget = new BudgetModel();
+        //     $name = $_POST['name']?? null; // Ensure user is logged in
+        //     if ($name) {
+        //         echo $budget->showBudgetTable($name);
+        //     } else {
+        //         echo "<p>Please log in to view your budgets.</p>";
+        //     }
+        // }
     }
 
 ?>

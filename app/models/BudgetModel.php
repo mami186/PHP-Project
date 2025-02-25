@@ -20,6 +20,13 @@
             return $stmt->execute([$name, $amount, $category, $user_id, $start_date, $end_date]);
         }
 
+        public function getBudgets(){
+            $sql = "SELECT * FROM budgets";
+            $stmt = $this->db->conn->prepare($sql);
+            $stmt->execute();
+            return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        }
+
         public function getBudgetsByUserId($user_id){
             try {
                 $sql = "SELECT * FROM budgets WHERE user_id = ?";
@@ -47,9 +54,9 @@
             }
         }
 
-        public function updateBudget($id, $name, $amount, $category){
-            $stmt = $this->db->conn->prepare("UPDATE budgets SET name = ?, amount = ?, category = ? WHERE id = ?");
-            return $stmt->execute([$name, $amount, $category, $id]);
+        public function updateBudget($id, $amount, $category){
+            $stmt = $this->db->conn->prepare("UPDATE budgets SET amount = ?, category = ? WHERE id = ?");
+            return $stmt->execute([ $amount, $category, $id]);
         }
 
         public function deleteBudget($id){
@@ -64,24 +71,24 @@
         //     return $amount;
         // }
 
-        public function showBudgetTable($name) {
-            $budgets = $this->getBudgetByName($name);
+        // public function showBudgetTable($name) {
+        //     $budgets = $this->getBudgetByName($name);
 
             
-            if (empty($budgets)) {
-                return "<p>No budgets found.</p>";
-            }
+        //     if (empty($budgets)) {
+        //         return "<p>No budgets found.</p>";
+        //     }
     
-            foreach ($budgets as $budget) {
+        //     foreach ($budgets as $budget) {
 
-                echo  htmlspecialchars($budget['id']);
-                echo  htmlspecialchars($budget['name']);
-                echo htmlspecialchars($budget['amount']);
-                echo htmlspecialchars($budget['category']);
-                echo htmlspecialchars($budget['created_at']);
+        //         echo  htmlspecialchars($budget['id']);
+        //         echo  htmlspecialchars($budget['name']);
+        //         echo htmlspecialchars($budget['amount']);
+        //         echo htmlspecialchars($budget['category']);
+        //         echo htmlspecialchars($budget['created_at']);
                 
-            }
-        }
+        //     }
+        // }
     }
 
 ?>
