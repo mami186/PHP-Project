@@ -14,12 +14,14 @@ $routes = [
     '/signup' => ['AuthController', 'signup'],
     '/dashboard' => ['DashboardController', 'index'],
     '/logout' => ['AuthController', 'logout'],
-    '/profile' => ['UsersController', 'index'],
+    '/profile' => ['UsersController', 'updateP'],
     '/budget' => ['BudgetController', 'index'],
     '/budget/create' => ['BudgetController', 'create'],
     '/budget/update' => ['BudgetController', 'update'],
     '/budget/delete' => ['BudgetController', 'delete'],
     '/budget/view' => ['BudgetController', 'view'],
+    '/users' => ['UsersController', 'index'],
+    '/addusr' => ['UsersController', 'addusr']
 
 ];
 

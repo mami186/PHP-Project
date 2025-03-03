@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,8 @@
                     <span>or use your email for registration</span>
                     <input type="text" name="name" placeholder="Name" id="username" required="">
                     <input type="email" name="email" placeholder="Email" required="">
-                    <input type="password"name="password" placeholder="Password" required="">
+                    <input type="password" name="password" placeholder="Password" required="">
+                    <input type="password" name="adminkey" placeholder="adminkey" required="">
                     <button><a href="">Sign Up</a></button>
                 </form>
             </div>

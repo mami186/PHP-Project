@@ -15,33 +15,61 @@
                 $name = $_POST['name'] ?? '';
                 $email = $_POST['email'] ?? '';
                 $password = $_POST['password'] ?? '';
+                $adminkey = $_POST['adminkey'] ?? '';
 
-                if(empty($name) || empty($email) || empty($password)){
-                    die( "Please fill in all the fields");
+                if(empty($name) || empty($adminkey)){
+                    die( "Please fill in all the required fields");
                     return;
                 }
-
-                echo htmlspecialchars($email) . "<br>";
 
                 $user = new UserModel();
 
-                if($user->getUserByEmail($email)){
+                if($user->getUserByEmail($email) || $user->getUserByName($name)){
                     echo "User already exists";
                     return;
                 }
+                $existingkey = $user->getAdminkeyByName($name);
+                if($existingkey){
+                    if (!password_verify($adminkey, $existingkey['hashedKEY'])){
+                        die("Ivalid adminkey");
+                        return;
+                    }elseif(!$existingkey['email']){
+                        if($user->signusr($name, $email, $password)){
+                            // Store user data in session for logged-in state
+                            //session_start();
+                            $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
+                            $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
+                            $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
+                            $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
+                            header("Location: /dashboard");
+                            exit;
+                        }else{
+                            die('not set email');
+                            return;
+                        }
+                    }elseif($email == $existingkey['email'] && password_verify($password, $existingkey['password'])){
+                        if($user->signusr($name, $email, $password)){
+                            // Store user data in session for logged-in state
+                            //session_start();
+                            $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
+                            $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
+                            $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
+                            $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
+                            header("Location: /dashboard");
+                            exit;
+                        }else{
+                            die(' set email not correct');
+                            return;
+                        }
+                    }
+                    else{
 
-                if($user->createUser($name, $email, $password)){
-                    // Store user data in session for logged-in state
-                    session_start();
-                    $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
-                    $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
-                    $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
-                    // Redirect to a dashboard    
-                    header("Location: /dashboard");
-                    exit;
+                        die("something wong");
+                        return;
+                    }
                 }else{
-
-                    die("Failed to create user");
+                    die("this key not right");
+                    return;
                 }
                 
             }
@@ -71,9 +99,10 @@
                 else{
                     // Store user data in session for logged-in state
                     session_start();
-                    $_SESSION['user_id'] = $existingUser['id'];
-                    $_SESSION['user_name'] = $existingUser['name'];
-                    $_SESSION['user_email'] = $existingUser['email'];
+                    $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
+                    $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
+                    $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
+                    $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
                     // Redirect to a dashboard    
                     header("Location: /dashboard");
                     exit;

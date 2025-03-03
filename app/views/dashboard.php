@@ -1,11 +1,11 @@
 <?php
-session_start();
 
 // If the user is not logged in, redirect to the login page
 if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -28,6 +28,10 @@ if (!isset($_SESSION['user_id'])) {
                     </li>
                     <li><button>
                         <a href="/budget" >budgets</a>
+                        </button>
+                    </li>
+                    <li><button>
+                        <a href="/users" >userman</a>
                         </button>
                     </li>
                     <li>
