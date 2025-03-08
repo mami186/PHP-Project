@@ -27,7 +27,11 @@ if (!isset($_SESSION['user_id'])) {
                         </button>
                     </li>
                     <li><button>
+<<<<<<< HEAD
                         <a href="/log.php" >Profile</a>
+=======
+                        <a href="\app\views\log.php" >Profile</a>
+>>>>>>> 21d527217a37441d914cc2885a88413799736158
                         </button>
                     </li>
                     <li><button>

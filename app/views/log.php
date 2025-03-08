@@ -32,14 +32,24 @@
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <h4>Expense Log</h4>
     <form action="/logs" method ="POST">
+=======
+    <h2>Expense Log</h2>
+>>>>>>> 21d527217a37441d914cc2885a88413799736158
     <input type="text" name="bg_catagory" >
     <input type="number" name="bg_amount" >
     <input type="text" name="bg_dep" >
     <input type="text" name="user_name" value="<?php echo htmlspecialchars($_SESSION['user_name ']); ?>" >
+<<<<<<< HEAD
     <button onclick="addExpense()">Add Expense</button>
     </form>
+=======
+    
+    <button onclick="addExpense()">Add Expense</button>
+    
+>>>>>>> 21d527217a37441d914cc2885a88413799736158
     <table>
         <thead>
             <tr>
