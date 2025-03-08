@@ -27,6 +27,10 @@ if (!isset($_SESSION['user_id'])) {
                         </button>
                     </li>
                     <li><button>
+                        <a href="/log.php" >Profile</a>
+                        </button>
+                    </li>
+                    <li><button>
                         <a href="/budget" >budgets</a>
                         </button>
                     </li>
