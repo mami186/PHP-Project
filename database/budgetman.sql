@@ -4,11 +4,17 @@ USE budgetman;
 
 CREATE TABLE IF NOT EXISTS users (
     id INT PRIMARY KEY AUTO_INCREMENT,
-    role ENUM('admin', 'user') NOT NULL DEFAULT 'user',
+    role ENUM('admin', 'user') NOT NULL ,
     name VARCHAR(100) NOT NULL UNIQUE,
     email VARCHAR(100) NOT NULL UNIQUE,
     password VARCHAR(100) NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+INSERT INTO users (role, name, email, password) 
+SELECT 'admin', 'admin', 'admin@gmail.com', '$2y$10$avcLekD6uCo62hNwZJVOfuV3EKdQiBInKMt3rhZ3ruoxm8zHCWMQa'
+WHERE NOT EXISTS (
+    SELECT 1 FROM users WHERE email = 'admin@gmail.com'
 );
 
 CREATE TABLE IF NOT EXISTS budgets (
@@ -32,8 +38,8 @@ CREATE TABLE IF NOT EXISTS adminkeys(
     hashedKEY VARCHAR(100) NOT NULL,
     email VARCHAR(100),
     password VARCHAR(100),
-    role ENUM('admin', 'user') NOT NULL DEFAULT 'admin',
-) 
+    role ENUM('admin', 'user') NOT NULL DEFAULT 'user'
+); 
 
 
 
