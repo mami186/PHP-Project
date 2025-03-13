@@ -5,8 +5,8 @@
 
         private $host = "localhost";
         // private $db_name = "budgetman";
-        private $username = "phpTeam";
-        private $password = "php_Team_3";
+        private $username = "root";
+        private $password = "";
         public $conn;
 
         public function __construct(){

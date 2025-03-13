@@ -48,8 +48,8 @@
     </nav>
     <main>
         <p>press to start ......</p>
-        <form action="/register" method="POST" >
-            <button>register</button>
+        <form action="/budget_managment/app/view/register.php" method="POST" >
+            <button><a href="/budget_managment/app/view/register.php">register</a></button>
         </form>
     </main>
     <footer>
