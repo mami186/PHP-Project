@@ -1,7 +1,13 @@
-
 <?php
 
+require_once __DIR__ . '/../config/config.php';
+
 require_once __DIR__ . '/../app/controllers/HomeController.php';
+require_once __DIR__ . '/../app/controllers/AuthController.php';
+require_once __DIR__ . '/../app/controllers/DashboardController.php';
+require_once __DIR__ . '/../app/controllers/UsersController.php';
+require_once __DIR__ . '/../app/controllers/BudgetController.php';
+
 $routes = [
     '/' => ['HomeController', 'index'], //page => controller@method
     '/register' => ['AuthController', 'index'],
@@ -9,31 +15,33 @@ $routes = [
     '/signup' => ['AuthController', 'signup'],
     '/dashboard' => ['DashboardController', 'index'],
     '/logout' => ['AuthController', 'logout'],
-    '/profile' => ['UsersController', 'updateP'],
+    '/profile' => ['UsersController', 'index'],
     '/budget' => ['BudgetController', 'index'],
     '/budget/create' => ['BudgetController', 'create'],
     '/budget/update' => ['BudgetController', 'update'],
     '/budget/delete' => ['BudgetController', 'delete'],
     '/budget/view' => ['BudgetController', 'view'],
-    '/users' => ['UsersController', 'index'],
-    '/addusr' => ['UsersController', 'addusr']
 
 ];
 
-//get the requested page if not homepage by default
 $request = $_SERVER['REQUEST_URI'] ?? '/';
-
-//extracting the path from the request(it has some other bullshit)
 $path = parse_url($request, PHP_URL_PATH);
 
-//check if the requested page is in the routes array
+
+
+$baseUri = '/budget_managment/public';
+$path = str_replace($baseUri, '', $path);
+$path = '/' . trim($path, '/');
+if (empty(trim($path, '/'))) {
+    $path = '/';
+}
+
 if (array_key_exists($path, $routes)) {
     [$controller, $method] = $routes[$path];
     $instance = new $controller();
     $instance->$method();
 } else {
     http_response_code(404);
-    echo "40444";
+    echo "404 Not Found";
 }
-
 ?>

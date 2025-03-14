@@ -7,7 +7,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile Page</title>
-    <link rel="stylesheet" href="/assets/css/profile.css"> 
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/profile.css"> 
 </head>
 <body>
     <div class="container">
@@ -15,8 +15,8 @@
             <h1>Your Profile</h1>
             <nav>
                 <ul>
-                    <li><a href="/dashboard">Dashboard</a></li>
-                    <li><form action="/logout" method="post">
+                    <li><a href="dashboard.php">Dashboard</a></li>
+                    <li><form action="<?= BASE_URL ?>/logout" method="post">
                             <button type="submit" class="link-button">Logout</button>
                         </form>
                     </li>

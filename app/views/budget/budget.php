@@ -1,10 +1,4 @@
 <?php
-    
-    if ($_SESSION['user_role'] !== 'admin') {
-        die("Access denied! You are not an admin.");
-    }
-    
-
 // Fetching budgets from the database
     require_once __DIR__ . '/../../models/BudgetModel.php';
     require_once __DIR__ . '/../../controllers/BudgetController.php';
@@ -96,8 +90,8 @@
         <!-- View Budget Form (Table) -->
         <section>
             <h2>View Budget</h2>
+            <?php if (!empty($budgets) && is_array($budgets)): ?>
             <table>
-                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Budget Name</th>
@@ -108,9 +102,6 @@
                         <th>Time created</th>
                         <th>who created</th>
                     </tr>
-                </thead>
-                <?php if (!empty($budgets) && is_array($budgets)): ?>
-                <thbody>
                     <?php foreach ($budgets as $budget): ?>
                     <tr>
                         <th>
@@ -140,11 +131,10 @@
                                                                                           
                     </tr>
                     <?php endforeach; ?>
-                </thbody>
-                <?php else: ?>
-                    <li>No budgets found.</li>
-                <?php endif; ?>
             </table>
+            <?php else: ?>
+                        <li>No budgets found.</li>
+            <?php endif; ?>
         </section>
     </div>
 </body>

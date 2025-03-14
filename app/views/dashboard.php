@@ -5,7 +5,6 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit;
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard</title>
-    <link rel="stylesheet" href="assets/css/dashboard.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/dashboard.css">
 </head>
 <body>
     <div class="container">
@@ -23,19 +22,15 @@ if (!isset($_SESSION['user_id'])) {
             <nav>
                 <ul>
                     <li><button>
-                        <a href="/profile" >Profile</a>
+                        <a href="<?= BASE_URL ?>/profile" >Profile</a>
                         </button>
                     </li>
                     <li><button>
-                        <a href="/budget" >budgets</a>
-                        </button>
-                    </li>
-                    <li><button>
-                        <a href="/users" >userman</a>
+                        <a href="<?= BASE_URL ?>/budget" >budgets</a>
                         </button>
                     </li>
                     <li>
-                        <form action ="/logout" method="POST">
+                        <form action ="<?= BASE_URL ?>/logout" method="POST">
                             <button type="submit" name="logout">Logout</button>
                         </form>
                     </li>
