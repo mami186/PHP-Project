@@ -30,6 +30,10 @@ if (!isset($_SESSION['user_id'])) {
                         <a href="<?= BASE_URL ?>/budget" >budgets</a>
                         </button>
                     </li>
+                    <li><button>
+                        <a href="<?= BASE_URL ?>/logpage" >logs</a>
+                        </button>
+                    </li>
                     <li>
                         <form action ="<?= BASE_URL ?>/logout" method="POST">
                             <button type="submit" name="logout">Logout</button>

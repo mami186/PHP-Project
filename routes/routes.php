@@ -7,7 +7,7 @@ require_once __DIR__ . '/../app/controllers/AuthController.php';
 require_once __DIR__ . '/../app/controllers/DashboardController.php';
 require_once __DIR__ . '/../app/controllers/UsersController.php';
 require_once __DIR__ . '/../app/controllers/BudgetController.php';
-
+require_once __DIR__ . '/../app/controllers/LogController.php';
 $routes = [
     '/' => ['HomeController', 'index'], //page => controller@method
     '/register' => ['AuthController', 'index'],
@@ -21,7 +21,8 @@ $routes = [
     '/budget/update' => ['BudgetController', 'update'],
     '/budget/delete' => ['BudgetController', 'delete'],
     '/budget/view' => ['BudgetController', 'view'],
-
+    '/logs' => ['LogController', 'create_log'],
+    '/logpage' => ['LogController', 'index'],
 ];
 
 $request = $_SERVER['REQUEST_URI'] ?? '/';
