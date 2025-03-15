@@ -23,9 +23,20 @@
         return "you have successfully added a log";
     }
 
-    public function delete_log (){
-
-
+    public function delete_log(){
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $log_id = $_POST['log_id'];
+            
+            $log = new LogModel();
+            $result = $log->log_delete($log_id);
+            
+            if ($result) {
+                header('Location: ' . BASE_URL . '/logpage');
+                exit;
+            } else {
+                echo "Failed to delete log";
+            }
+        }
     }
 
     public function update_log (){
