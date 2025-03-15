@@ -43,12 +43,26 @@ CREATE TABLE IF NOT EXISTS adminkeys(
     password VARCHAR(100),
     role ENUM('admin', 'user') NOT NULL DEFAULT 'user'
 ); 
-CREATE TABLE IF NOT EXISTS `departments` (
-    `id` INT(11) AUTO_INCREMENT PRIMARY KEY,
-    `department_name` VARCHAR(100),
-    `description` TEXT,
-    `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+CREATE TABLE IF NOT EXISTS logs (
+    log_id INT PRIMARY KEY AUTO_INCREMENT,
+    user_name TEXT NOT NULL,
+    bg_dep text NOT NULL,
+    bg_amount DECIMAL(10, 2) NOT NULL,
+    description TEXT NOT NULL
 );
+
+-- Insert test data
+INSERT INTO logs (user_name, bg_dep, bg_amount, description) 
+VALUES ('Test User', 'IT', 1000.00, 'Test Description');
+VALUES ('Test User2 ', 'ITam', 2000.00, 'Test Description2');
+
+CREATE TABLE IF NOT EXISTS departments (
+    id INT(11) AUTO_INCREMENT PRIMARY KEY,
+    department_name VARCHAR(100),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
 
 
 
