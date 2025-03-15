@@ -8,6 +8,7 @@ require_once __DIR__ . '/../app/controllers/DashboardController.php';
 require_once __DIR__ . '/../app/controllers/UsersController.php';
 require_once __DIR__ . '/../app/controllers/BudgetController.php';
 require_once __DIR__ . '/../app/controllers/LogController.php';
+require_once __DIR__ . '/../app/controllers/AdminController.php';
 $routes = [
     '/' => ['HomeController', 'index'], //page => controller@method
     '/register' => ['AuthController', 'index'],
@@ -23,6 +24,8 @@ $routes = [
     '/budget/view' => ['BudgetController', 'view'],
     '/logs' => ['LogController', 'create_log'],
     '/logpage' => ['LogController', 'index'],
+    '/adminpg' => ['AdminController', 'showAdminPage'],
+    '/createdept' => ['DeptController', 'create_dept'],
 ];
 
 $request = $_SERVER['REQUEST_URI'] ?? '/';
@@ -30,12 +33,14 @@ $path = parse_url($request, PHP_URL_PATH);
 
 
 
-$baseUri = '/budget_managment/public';
+$baseUri = '/PHP-Project/public';
 $path = str_replace($baseUri, '', $path);
 $path = '/' . trim($path, '/');
 if (empty(trim($path, '/'))) {
     $path = '/';
 }
+
+echo $path . "<br>" . $request;
 
 if (array_key_exists($path, $routes)) {
     [$controller, $method] = $routes[$path];

@@ -33,6 +33,11 @@
             }
         }
         
+        public function getUser(){
+            
+            return $stmt = $this->db->conn->query("SELECT * FROM users");
+        }
+        
     }
 
 ?>
