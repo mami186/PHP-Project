@@ -1,0 +1,52 @@
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 60px; /* Minimized width */
+    height: 100%;
+    background-color: #252540;
+    color: white;
+    transition: all 0.3s;
+    padding-top: 20px;
+}
+
+.sidebar:hover {
+    width: 150px; /* Expanded width */
+}
+
+.sidebar ul {
+    padding: 0;
+    list-style: none;
+}
+
+.sidebar ul li {
+    padding: 15px;
+    text-align: center;
+}
+
+.sidebar ul li a {
+    color: white;
+    text-decoration: none;
+    display: block;
+}
+
+.sidebar .text {
+    display: none; /* Hide the text by default */
+}
+
+.sidebar:hover .text {
+    display: inline-block; /* Show the text when sidebar is hovered */
+}
+
+/* Optional: Styling for the icon to be more aligned */
+.sidebar ul li .icon {
+    display: inline-block;
+    width: 30px;
+    text-align: center;
+}
+
+/* Main content area */
+.main-content {
+    margin-left: 60px;
+    padding: 20px;
+}
