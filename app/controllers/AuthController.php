@@ -3,7 +3,6 @@
 
     
     require_once __DIR__ .'/../models/UserModel.php';
-
     class AuthController {
 
          public function index() {
