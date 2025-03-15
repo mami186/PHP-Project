@@ -23,7 +23,6 @@
                 die("Connection failed: " . $e->getMessage());
             }
     
-            return $this->conn;
             
         }
 
