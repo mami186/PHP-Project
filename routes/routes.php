@@ -24,12 +24,9 @@ $routes = [
     '/budget/view' => ['BudgetController', 'view'],
     '/logs' => ['LogController', 'create_log'],
     '/logpage' => ['LogController', 'index'],
-<<<<<<< HEAD
-    '/adminpg' => ['AdminController', 'showAdminPage'],
-    '/createdept' => ['DeptController', 'create_dept'],
-=======
-    '/logs/delete' => ['LogController', 'delete_log'],
->>>>>>> 6f216f63910c755b68ba250355d1add1f4c15674
+'/adminpg' => ['AdminController', 'showAdminPage'],
+'/createdept' => ['DeptController', 'create_dept'],
+'/logs/delete' => ['LogController', 'delete_log'],
 ];
 
 $request = $_SERVER['REQUEST_URI'] ?? '/';
@@ -50,8 +47,8 @@ if (array_key_exists($path, $routes)) {
     [$controller, $method] = $routes[$path];
     $instance = new $controller();
     $instance->$method();
-} else {
-    http_response_code(404);
+    [$controller, $method] = $routes[$path];
+    $instance = new $controller;
     echo "404 Not Found";
 }
 ?> 

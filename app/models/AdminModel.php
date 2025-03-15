@@ -6,8 +6,7 @@ class AdminModel {
     private $conn;
 
     public function __construct() {
-        global $conn;
-        $this->conn = $conn;
+        $this->conn = Database::getConnection();
     }
 
     // Create a new department

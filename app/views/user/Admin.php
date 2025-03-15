@@ -25,9 +25,14 @@
 <form method="POST">
     <select name="department_id" required>
         <option value="">Select Department</option>
-        <?php while ($row = $departments->fetch_assoc()): ?>
+        <?php 
+        $department_list = [];
+        while ($row = $departments->fetch_assoc()) {
+            $department_list[] = $row;
+        }
+        foreach ($department_list as $row): ?>
             <option value="<?= $row['id'] ?>"><?= $row['department_name'] ?></option>
-        <?php endwhile; ?>
+        <?php endforeach; ?>
     </select>
     <input type="number" name="allocated_budget" placeholder="Amount" required>
     <input type="date" name="start_date" required>
@@ -38,8 +43,7 @@
 <!-- Assign User -->
 <h2>Assign User</h2>
 <form method="POST">
-    <input type="text" name="user_name" placeholder="User Name" required>
-    <input type="email" name="user_email" placeholder="User Email" required>
+        foreach ($department_list as $row): ?>
     <input type="password" name="user_password" placeholder="User Password" required>
     <select name="department_id" required>
         <?php
