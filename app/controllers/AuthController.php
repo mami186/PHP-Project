@@ -2,6 +2,7 @@
 <?php 
 
     
+<<<<<<< HEAD
     require_once __DIR__ .'/../models/UserModel.php';
     class AuthController {
 
@@ -9,91 +10,130 @@
              require_once __DIR__ . '/../views/register.php';
             
          }
+=======
+require_once __DIR__ .'/../models/UserModel.php';
 
-        public function signup(){
-            if($_SERVER['REQUEST_METHOD'] == 'POST'){
-                $name = $_POST['name'] ?? '';
-                $email = $_POST['email'] ?? '';
-                $password = $_POST['password'] ?? '';
+class AuthController {
 
-                if(empty($name) || empty($email) || empty($password)){
-                    die( "Please fill in all the fields");
-                    return;
-                }
+     public function index() {
+        require_once __DIR__ . '/../views/register.php';
+     }
+>>>>>>> 07a117180fe2a1800e048e4de044892b167b3d89
 
-                echo htmlspecialchars($email) . "<br>";
+    public function signup(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $name = $_POST['name'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+            $adminkey = $_POST['adminkey'] ?? '';
 
-                $user = new UserModel();
-
-                if($user->getUserByEmail($email)){
-                    echo "User already exists";
-                    return;
-                }
-
-                if($user->createUser($name, $email, $password)){
-                    // Store user data in session for logged-in state
-                   
-                    $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
-                    $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
-                    $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
-                    // Redirect to a dashboard    
-                    require_once __DIR__ . '/../views/dashboard.php';
-                    exit;
-                }else{
-
-                    die("Failed to create user");
-                }
-                
+            if(empty($name) || empty($adminkey)){
+                die( "Please fill in all the required fields");
+                return;
             }
-        }
 
-        public function login() {
-            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $email = $_POST['email'] ?? '';
-                $password = $_POST['password'] ?? '';
-        
-                if (empty($email) || empty($password)) {
-                    die( "All fields are required!");
+            $user = new UserModel();
+
+            if($user->getUserByEmail($email) || $user->getUserByName($name)){
+                echo "User already exists";
+                return;
+            }
+            $existingkey = $user->getAdminkey($name);
+            if($existingkey){
+                if (!password_verify($adminkey, $existingkey['hashedKEY'])){
+                    die("Ivalid adminkey");
                     return;
                 }
-        
-                $user = new UserModel();
-                $existingUser = $user->getUserByEmail($email);
-        
-                if (!$existingUser) {
-                    die("Invalid user");
-                    return;
-                }
-                elseif (!password_verify($password, $existingUser['password'])){
-                    die("Ivalid password");
-                    return;
+                if(!$existingkey['email']){
+                    if($user->signIn($name, $email, $password)){
+                        // Store user data in session for logged-in state
+                        session_start();
+                        $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
+                        $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
+                        $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
+                        $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
+                        header("Location: ".BASE_URL."/dashboard");
+                        exit;
+                    }else{
+                        die('not set email');
+                        return;
+                    }
+                }elseif($email == $existingkey['email']){
+                    if($user->signIn($name, $email, $password)){
+                        // Store user data in session for logged-in state
+                        session_start();
+                        $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
+                        $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
+                        $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
+                        $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
+                        header("Location: ".BASE_URL."/dashboard");
+                        exit;
+                    }else{
+                        die(' set email not correct');
+                        return;
+                    }
                 }
                 else{
-                    // Store user data in session for logged-in state
-                  
-                    $_SESSION['user_id'] = $existingUser['id'];
-                    $_SESSION['user_name'] = $existingUser['name'];
-                    $_SESSION['user_email'] = $existingUser['email'];
-                    // Redirect to a dashboard    
-                    require_once __DIR__ . '/../views/dashboard.php';
-                    exit;
-                }
-                
-                
-                
-            }
-        }
 
-        public function logout() {
-            session_start();
-            session_unset();
-            session_destroy();
-            echo "Logged out successfully!";
-            // Redirect to homepage or login page
-            header("Location: /");
-            exit;
+                    die("something wong");
+                    return;
+                }
+            }else{
+                die("this key not right");
+                return;
+            }
+            
         }
-        
     }
+
+    public function login() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+    
+            if (empty($email) || empty($password)) {
+                die( "All fields are required!");
+                return;
+            }
+    
+            $user = new UserModel();
+            $existingUser = $user->getUserByEmail($email);
+    
+            if (!$existingUser) {
+                die("Invalid user");
+                return;
+            }
+            elseif (!password_verify($password, $existingUser['password'])){
+                die("Ivalid password");
+                return;
+            }
+            else{
+                // Store user data in session for logged-in state
+                session_start();
+                $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
+                $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
+                $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
+                $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
+                // Redirect to a dashboard    
+                header("Location: ".BASE_URL."/dashboard");
+                exit;
+            }
+            
+            
+            
+        }
+    }
+
+    public function logout() {
+        session_start();
+        session_unset();
+        session_destroy();
+        echo "Logged out successfully!";
+        // Redirect to homepage or login page
+        header("Location: <?=BASE_URL?>/");
+        exit;
+    }
+    
+}
 
 ?>
