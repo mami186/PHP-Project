@@ -1,10 +1,10 @@
 <?php
-
+session_start();
 // If the user is not logged in, redirect to the login page
-// if (!isset($_SESSION['user_id'])) {
-//     header('Location: login.php');
-//     exit;
-// }
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit;
+}
 ?>
 
 <!DOCTYPE html>
@@ -34,11 +34,11 @@
                         </button>
                     </li>
                     <li><button>
-                        <a href="<?= BASE_URL ?>/adminpg" >Departments</a>
+                        <a href="<?= BASE_URL ?>/usrpage" >usr</a>
                         </button>
                     </li>
                     <li>
-                        <form action ="<?= BASE_URL ?>/logout" method="POST">
+                        <form action ="<?= BASE_URL ?>/" method="POST">
                             <button type="submit" name="logout">Logout</button>
                         </form>
                     </li>

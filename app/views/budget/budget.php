@@ -1,4 +1,9 @@
 <?php
+
+
+    // if ($_SESSION['user_role'] !== 'admin') {
+    //     die("Access denied! You are not an admin.");
+    // }
 // Fetching budgets from the database
     require_once __DIR__ . '/../../models/BudgetModel.php';
     require_once __DIR__ . '/../../controllers/BudgetController.php';
