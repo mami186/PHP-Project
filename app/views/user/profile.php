@@ -16,7 +16,7 @@
             <nav>
                 <ul>
                     <li><a href="dashboard.php">Dashboard</a></li>
-                    <li><form action="<?= BASE_URL ?>/logout" method="post">
+                    <li><form action="<?= BASE_URL ?>/" method="post">
                             <button type="submit" class="link-button">Logout</button>
                         </form>
                     </li>

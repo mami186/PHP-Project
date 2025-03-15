@@ -2,15 +2,7 @@
 <?php 
 
     
-<<<<<<< HEAD
-    require_once __DIR__ .'/../models/UserModel.php';
-    class AuthController {
 
-         public function index() {
-             require_once __DIR__ . '/../views/register.php';
-            
-         }
-=======
 require_once __DIR__ .'/../models/UserModel.php';
 
 class AuthController {
@@ -18,7 +10,6 @@ class AuthController {
      public function index() {
         require_once __DIR__ . '/../views/register.php';
      }
->>>>>>> 07a117180fe2a1800e048e4de044892b167b3d89
 
     public function signup(){
         if($_SERVER['REQUEST_METHOD'] == 'POST'){
