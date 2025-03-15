@@ -32,7 +32,7 @@ $path = parse_url($request, PHP_URL_PATH);
 
 
 
-$baseUri = '/PHP-Project/public';
+$baseUri = '/budget_managment/public';
 $path = str_replace($baseUri, '', $path);
 $path = '/' . trim($path, '/');
 if (empty(trim($path, '/'))) {

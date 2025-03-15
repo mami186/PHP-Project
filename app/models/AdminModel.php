@@ -32,13 +32,13 @@ class AdminModel {
     }
 
     // Fetch all departments with allocated budgets
-    public function getDepartments() {
-        $sql = "SELECT d.*, IFNULL(SUM(b.bg_amount), 0) AS allocated_budget
-                FROM departments d
-                LEFT JOIN budgets b ON d.id = b.department_id
-                GROUP BY d.id";
-        return $this->conn->query($sql);
-    }
+    // public function getDepartments() {
+    //     $sql = "SELECT d.*, IFNULL(SUM(b.bg_amount), 0) AS allocated_budget
+    //             FROM departments d
+    //             LEFT JOIN budgets b ON d.id = b.department_id
+    //             GROUP BY d.id";
+    //     return $this->conn->query($sql);
+    // }
 
     // Fetch all users and their departments
     public function getUsers() {
