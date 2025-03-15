@@ -19,6 +19,24 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
+        table {
+        font-family: arial, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+        }
+
+        td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+        }
+
+        tr:nth-child(even) {
+        background-color: #dddddd;
+        }
+
+
+
         h2 {
             text-align: center;
         }
@@ -53,7 +71,41 @@
     </style>
 </head>
 <body>
-
+<section>
+    <?php if (!empty($users) && is_array($users)): ?>
+    <table>
+            <tr>
+                <th>ID</th>
+                <th>Role</th>
+                <th>Name</th> 
+                <th>Email</th>
+                <th>Created at</th>
+            </tr>
+            <?php foreach ($users as $usr): ?>
+            <tr>
+                <th>
+                    <?php echo htmlspecialchars($usr['id']); ?>
+                </th>
+                <th>
+                    <?php echo htmlspecialchars($usr['role']); ?>
+                </th> 
+                <th>
+                    <?php echo htmlspecialchars($usr['name']); ?>
+                </th> 
+                <th>
+                    <?php echo htmlspecialchars($usr['email']); ?>
+                </th>
+                <th>
+                    <?php echo  date('Y-m-d H:i:s', strtotime($usr['created_at'])) ; ?>
+                </th>
+                                                                                    
+            </tr>
+            <?php endforeach; ?>
+    </table>
+    <?php else: ?>
+                <li>User managment</li>
+    <?php endif; ?>
+</section>
 <div class="container">
     <h2>Create User</h2>
     <form action="<?= BASE_URL ?>/create-user" method="POST">

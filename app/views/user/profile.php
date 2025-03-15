@@ -15,7 +15,7 @@
             <h1>Your Profile</h1>
             <nav>
                 <ul>
-                    <li><a href="dashboard.php">Dashboard</a></li>
+                    <li><a href="<?= BASE_URL ?>/dashboard">Dashboard</a></li>
                     <li><form action="<?= BASE_URL ?>/" method="post">
                             <button type="submit" class="link-button">Logout</button>
                         </form>

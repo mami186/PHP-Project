@@ -32,8 +32,7 @@
 
                 if ($budget->createBudget($name, $amount, $category, $user_id, $start_date, $end_date)) {
                     
-                    var_dump($budget->getBudgetsByUserId($user_id));
-                    
+                    header("Location: " . BASE_URL . "/budget");
                     exit;
                 } else {
                     die("Failed to create budget");
@@ -59,7 +58,7 @@
                 $budget = new BudgetModel();
 
                 if ($budget->updateBudget($id, $amount, $category)) {
-                    header("Location: /budgets");
+                    header("Location: " . BASE_URL . "/budget");
                     exit;
                 } else {
                     die("Failed to update budget");
@@ -79,7 +78,7 @@
                 $budget = new BudgetModel();
 
                 if ($budget->deleteBudget($id)) {
-                    header("Location: /budgets");
+                    header("Location: " . BASE_URL . "/budget");
                     exit;
                 } else {
                     die("Failed to delete budget");

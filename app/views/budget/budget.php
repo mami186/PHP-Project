@@ -16,7 +16,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Manage Budgets</title>
-    <link rel="stylesheet" href="../assets/css/budget.css">
+    <link rel="stylesheet" href="<?= BASE_URL ?>/assets/css/budget.css">
 </head>
 <body>
     <div class="container">
@@ -27,7 +27,7 @@
         <!-- Create Budget Form -->
         <section>
             <h2>Create a New Budget</h2>
-            <form action="/budget/create" method="POST">
+            <form action="<?= BASE_URL ?>/budget/create" method="POST">
                 <label for="budget_name">Budget Name</label>
                 <input type="text" id="budget_name" name="name" required>
                 
@@ -53,7 +53,7 @@
         <!-- Update Budget Form (Dropdown) -->
         <section>
             <h2>Update Budget</h2>
-            <form action="/budget/update" method="POST">
+            <form action="<?= BASE_URL ?>/budget/update" method="POST">
                 <label for="budget_id">Select Budget</label>
                 <select name="id" id="budget_id" required>
                     <option value="">  Select a Budget  </option>
@@ -77,7 +77,7 @@
         <!-- Delete Budget Form (Dropdown) -->
         <section>
             <h2>Delete Budget</h2>
-            <form action="/budget/delete" method="POST">
+            <form action="<?= BASE_URL ?>/budget/delete" method="POST">
                 <label for="delete_budget_id">Select Budget to Delete</label>
                 <select name="id" id="delete_budget_id" required>
                     <option value="">  Select a Budget  </option>
@@ -99,13 +99,14 @@
             <table>
                     <tr>
                         <th>ID</th>
+                        <th>user_id</th>
                         <th>Budget Name</th>
                         <th>Amount</th>
+                        <th>Amount_spent</th>
                         <th>Category</th>
                         <th>Start Date</th>
                         <th>End Date</th>
                         <th>Time created</th>
-                        <th>who created</th>
                     </tr>
                     <?php foreach ($budgets as $budget): ?>
                     <tr>
@@ -113,10 +114,16 @@
                             <?php echo htmlspecialchars($budget['id']); ?>
                         </th>
                         <th>
+                            <?php echo htmlspecialchars($budget['user_id']); ?>
+                        </th> 
+                        <th>
                             <?php echo htmlspecialchars($budget['name']); ?>
                         </th> 
                         <th>
                             <?php echo htmlspecialchars($budget['amount']); ?>
+                        </th>
+                        <th>
+                            <?php echo htmlspecialchars($budget['amount_spent']); ?>
                         </th>
                         <th>
                             <?php echo htmlspecialchars($budget['category']); ?>
@@ -129,9 +136,6 @@
                         </th>
                         <th>
                             <?php echo  date('Y-m-d H:i:s', strtotime($budget['created_at'])) ; ?>
-                        </th>
-                        <th>
-                            <?php echo htmlspecialchars($budget['user_id']); ?>
                         </th>
                                                                                           
                     </tr>
