@@ -59,6 +59,19 @@
             return $stmt->fetchAll(PDO::FETCH_ASSOC);
         }
 
+        public function getUserById($id){
+            try {
+                $stmt = $this->db->conn->prepare("SELECT * FROM users WHERE id = ?");
+                if (!$stmt) {
+                    die("Error: Failed to prepare statement.");
+                }
+                $stmt->execute([$id]);
+                return $stmt->fetch(PDO::FETCH_ASSOC);
+            } catch (PDOException $e) {
+                die("SQL Error: " . $e->getMessage()); // Print exact SQL error
+            }
+        }
+
         public function getUserByName($name){
             $stmt = $this->db->conn->prepare("SELECT * FROM users WHERE name = ?");
             $stmt->execute([$name]);
@@ -77,7 +90,17 @@
                 die("SQL Error: " . $e->getMessage()); // Print exact SQL error
             }
         }
-        
+
+        public function updateUser($id, $name, $email, ){
+            $stmt = $this->db->conn->prepare("UPDATE users SET name = ?, email = ? WHERE id = ?");
+            return $stmt->execute([$name, $email, $id]);
+        }
+        public function updateUserPassword($id, $name, $email, $password){
+            $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+            $stmt = $this->db->conn->prepare("UPDATE users SET name = ?, email = ?, password = ? WHERE id = ?");    
+            return $stmt->execute([$name, $email, $hashedPassword, $id]);
+            
+        }
     }
 
 ?>

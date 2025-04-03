@@ -17,8 +17,6 @@ class AdminController {
                     echo "Department created successfully!";
                 } else {
                     echo "Error: Missing department name or description.";
-                        } 
-                    }
                 }
             
                 if (isset($_POST['department_id']) && isset($_POST['allocated_budget']) && isset($_POST['start_date']) && isset($_POST['end_date'])) {
@@ -35,16 +33,17 @@ class AdminController {
                     echo "Error: Missing user assignment details.";
                 }
             }
-
+            }
+        } // Closing brace for handleRequest method
+    
             if (isset($_POST['allocate_budget'])) {
-                $this->adminModel->allocateBudget($_POST['department_id'], $_POST['allocated_budget'], $_POST['start_date'], $_POST['end_date']);
-                echo "Budget allocated successfully!";
-            }
+            $this->adminModel->allocateBudget($_POST['department_id'], $_POST['allocated_budget'], $_POST['start_date'], $_POST['end_date']);
+            echo "Budget allocated successfully!";
+        }
 
-            if (isset($_POST['assign_user'])) {
-                $this->adminModel->assignUser($_POST['user_name'], $_POST['user_email'], $_POST['user_password'], $_POST['department_id']);
-                echo "User assigned successfully!";
-            }
+        if (isset($_POST['assign_user'])) {
+            $this->adminModel->assignUser($_POST['user_name'], $_POST['user_email'], $_POST['user_password'], $_POST['department_id']);
+            echo "User assigned successfully!";
         }
     }
 
@@ -54,5 +53,4 @@ class AdminController {
         $users = $this->adminModel->getUsers();
         require_once __DIR__ . '/../views/user/Admin.php';
     }
-}
 ?>

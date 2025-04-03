@@ -31,9 +31,33 @@ class UserController{
         }
     }
 
-    public function updateP(){
+    public function profile(){
+        $userModel = new UserModel();
+        $user = $userModel->getUserById($_SESSION['user_id']);
         require_once __DIR__ . '/../views/user/profile.php';
         echo "Welcome to the profile page";
+    }
+
+    public function updateP(){
+        if($_SERVER['REQUEST_METHOD'] == 'POST'){
+            $id = $_POST['id'] ?? '';
+            $name = $_POST['name'] ?? '';
+            $email = $_POST['email'] ?? '';
+            $password = $_POST['password'] ?? '';
+
+            $userModel = new UserModel();
+            if(empty($password)){
+                
+                $userModel->updateUser($id, $name,$email,);
+                header("Location: " . BASE_URL . "/profile");
+                exit;
+            }
+            
+            $userModel->updateUserPassword($id, $name,$email,$password);
+            header("Location: " . BASE_URL . "/profile");
+            exit;
+            
+        }
     }
 
     

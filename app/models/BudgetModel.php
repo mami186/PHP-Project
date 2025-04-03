@@ -54,9 +54,15 @@
             }
         }
 
-        public function updateBudget($id, $amount, $category){
-            $stmt = $this->db->conn->prepare("UPDATE budgets SET amount = ?, category = ? WHERE id = ?");
-            return $stmt->execute([ $amount, $category, $id]);
+        public function getBudgetById($id){
+            $stmt = $this->db->conn->prepare("SELECT * FROM budgets WHERE id =?");
+            $stmt->execute([$id]);
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        }
+
+        public function updateBudget($id, $name, $amount, $category, $start_date, $end_date){
+            $stmt = $this->db->conn->prepare("UPDATE budgets SET name= ?, amount = ?, category = ?, start_date = ?, end_date = ? WHERE id = ?");
+            return $stmt->execute([ $name, $amount, $category, $start_date, $end_date, $id]);
         }
 
         public function deleteBudget($id){

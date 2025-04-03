@@ -16,7 +16,8 @@ $routes = [
     '/usrpage' => ['UserController','index'],
     '/dashboard' => ['DashboardController', 'index'],
     '/logout' => ['AuthController', 'logout'],
-    '/profile' => ['UserController', 'updateP'],
+    '/profile' => ['UserController', 'profile'],
+    '/profile/update' => ['UserController', 'updateP'],
     '/budget' => ['BudgetController', 'index'],
     '/budget/create' => ['BudgetController', 'create'],
     '/budget/update' => ['BudgetController', 'update'],
@@ -32,7 +33,7 @@ $path = parse_url($request, PHP_URL_PATH);
 
 
 
-$baseUri = '/PHP-Project/public';
+$baseUri = BASE_URL;
 $path = str_replace($baseUri, '', $path);
 $path = '/' . trim($path, '/');
 if (empty(trim($path, '/'))) {

@@ -38,7 +38,7 @@ class AuthController {
                 if(!$existingkey['email']){
                     if($user->signIn($name, $email, $password)){
                         // Store user data in session for logged-in state
-                        session_start();
+                       
                         $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
                         $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
                         $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
@@ -52,7 +52,7 @@ class AuthController {
                 }elseif($email == $existingkey['email']){
                     if($user->signIn($name, $email, $password)){
                         // Store user data in session for logged-in state
-                        session_start();
+                       
                         $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
                         $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
                         $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
@@ -100,12 +100,13 @@ class AuthController {
             }
             else{
                 // Store user data in session for logged-in state
-                session_start();
+        
                 $_SESSION['user_id'] = $user->getUserByEmail($email)['id'];
                 $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
                 $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
                 $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
                 // Redirect to a dashboard    
+                
                 header("Location: ".BASE_URL."/dashboard");
                 exit;
             }
@@ -116,12 +117,12 @@ class AuthController {
     }
 
     public function logout() {
-        session_start();
+     
         session_unset();
         session_destroy();
         echo "Logged out successfully!";
         // Redirect to homepage or login page
-        header("Location: <?=BASE_URL?>/");
+        header("Location: " . BASE_URL);
         exit;
     }
     

@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS users (
 INSERT INTO users (role, name, email, password) 
 SELECT 'admin', 'admin', 'admin@gmail.com', '$2y$10$avcLekD6uCo62hNwZJVOfuV3EKdQiBInKMt3rhZ3ruoxm8zHCWMQa'
 WHERE NOT EXISTS (
-    SELECT 1 FROM users WHERE email = 'admin@gmail.com'
+    SELECT 1 FROM users WHERE id = 1
 );
 
 CREATE TABLE IF NOT EXISTS budgets (

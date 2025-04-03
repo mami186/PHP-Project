@@ -1,14 +1,19 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-        <title>Register</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/assets/css/register.css">
-        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>Register</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="<?= BASE_URL ?>/assets/css/register.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        
+    </style>
 
-    </head>
-    <body>
+</head>
+<body>
+    <main class="background">
         <script src="./js/auth.js"></script>
         <div class="container" id="container">
             <div class="form-container sign-up-container">
@@ -58,6 +63,6 @@
             </div>
         </div>
         <script src="<?= BASE_URL ?>/assets/js/register.js"></script>
-    
+    </main>
 </body>
 </html>

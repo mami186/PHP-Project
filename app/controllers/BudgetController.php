@@ -10,20 +10,22 @@
             $budgetModel = new BudgetModel();
             $budgets = $budgetModel->getBudgets();
 
-            require_once __DIR__ . '/../views/budget/budget.php';
+            require_once __DIR__ . '/../views/budget/view-budget.php';
         }
 
         public function create() {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $user_id = $_POST['user_id'] ?? '';
                 $name = $_POST['name'] ?? '';
                 $amount = $_POST['amount'] ?? '';
                 $category = $_POST['category'] ?? '';
-                $user_id = $_POST['user_id'] ?? '';
                 $start_date = $_POST['start_date'] ?? '';
                 $end_date = $_POST['end_date'] ?? '';
                 
 
                 if (empty($name) || empty($amount) || empty($category) || empty($user_id) || empty($start_date) || empty($end_date)) {
+                    
+                    echo $name . $user_id . $amount . $category . $start_date. $end_date;
                     die("All fields are required!");
                     return;
                 }
@@ -46,18 +48,19 @@
                 $name = $_POST['name'] ?? '';
                 $amount = $_POST['amount'] ?? 0;
                 $category = $_POST['category'] ?? '';
-                // $start_date = $_POST['start_date'] ?? '';
-                // $end_date = $_POST['end_date'] ?? '';
+                $start_date = $_POST['start_date'] ?? '';
+                $end_date = $_POST['end_date'] ?? '';
 
-
+                echo $id . $name . $category; 
                 if (empty($id)) {
-                    die("All fields are required!");
+                    die("id not set");
                     return;
                 }
 
                 $budget = new BudgetModel();
 
-                if ($budget->updateBudget($id, $amount, $category)) {
+                if ($budget->updateBudget($id, $name, $amount, $category, $start_date, $end_date)) {
+                    echo "update";
                     header("Location: " . BASE_URL . "/budget");
                     exit;
                 } else {
