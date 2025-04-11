@@ -62,15 +62,6 @@
     <h2>Latest 10 Logs</h2>
 
     <?php
-    // Database connection
-    $servername = "localhost";
-    $username = "root";
-    $password = "";
-    $dbname = "budgetman";
-
-    try {
-        $conn = new PDO("mysql:host=$servername;dbname=$dbname", $username, $password);
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         // Handle form submission for updates (both from specific form and table forms)
         if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['log_id'])) {
@@ -142,12 +133,6 @@
         }
         
         echo "</table>";
-
-    } catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-    }
-
-    $conn = null;
     ?>
 
     <script>

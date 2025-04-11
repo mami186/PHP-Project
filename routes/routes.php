@@ -16,6 +16,7 @@ $routes = [
     '/usrpage' => ['UserController','index'],
     '/dashboard' => ['DashboardController', 'index'],
     '/logout' => ['AuthController', 'logout'],
+    '/user' => ['UserController', 'index'],
     '/profile' => ['UserController', 'profile'],
     '/profile/update' => ['UserController', 'updateP'],
     '/budget' => ['BudgetController', 'index'],

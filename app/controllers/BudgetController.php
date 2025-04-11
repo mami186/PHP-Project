@@ -10,7 +10,7 @@
             $budgetModel = new BudgetModel();
             $budgets = $budgetModel->getBudgets();
 
-            require_once __DIR__ . '/../views/budget/view-budget.php';
+            require_once __DIR__ . '/../views/admin/view-budget.php';
         }
 
         public function create() {

@@ -3,9 +3,9 @@
 
     class Database {
 
-        private $host = "localhost";
+        private $host = "localhost:3306";
         private $username = "root";
-        private $password = "";
+        private $password = "rootdb";
         public $conn;
 
         public function __construct(){
@@ -13,7 +13,6 @@
             try {
                 $this->conn = new PDO("mysql:host=$this->host", $this->username, $this->password);
                 $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                echo "Connected successfully";
 
                 $sqlFile = __DIR__ . '/../database/budgetman.sql';
                 $sql = file_get_contents($sqlFile);

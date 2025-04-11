@@ -1,3 +1,7 @@
+<?php
+echo "Base URL: " . BASE_URL . "<br>";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +9,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - Budget Management</title>
     <link rel="stylesheet" href="<?=BASE_URL?>/assets/css/home_css.css"> 
-    <link rel="stylesheet" href="css/sidebar_css.css">
     <style>
         .body {
             background-color: #f6f5f7;

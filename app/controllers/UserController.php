@@ -5,7 +5,7 @@ class UserController{
     public function index(){
         $userModel = new UserModel();
         $users = $userModel->getUsers();
-        require_once __DIR__ . '/../views/user/user.php';
+        require_once __DIR__ . '/../views/admin/user.php';
         
     }  
 
@@ -34,7 +34,7 @@ class UserController{
     public function profile(){
         $userModel = new UserModel();
         $user = $userModel->getUserById($_SESSION['user_id']);
-        require_once __DIR__ . '/../views/user/profile.php';
+        require_once __DIR__ . '/../views/profile.php';
         echo "Welcome to the profile page";
     }
 
