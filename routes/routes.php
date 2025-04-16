@@ -29,16 +29,14 @@ $routes = [
     '/create-user' => ['UserController', 'createUsr']
 ];
 
-$request = $_SERVER['REQUEST_URI'] ?? '/';
-$path = parse_url($request, PHP_URL_PATH);
+$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+$path = '/' . trim(str_replace(BASE_URL, '', $uri), '/');
 
-
-
-$baseUri = BASE_URL;
-$path = str_replace($baseUri, '', $path);
-$path = '/' . trim($path, '/');
-if (empty(trim($path, '/'))) {
+// Fix for root path
+if ($path === '/' || $path === '') {
     $path = '/';
+} else {
+    $path = '/' . ltrim($path, '/');
 }
 
 if (array_key_exists($path, $routes)) {
