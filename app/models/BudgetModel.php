@@ -70,31 +70,10 @@
             return $stmt->execute([$id]);
         }
         
-        // public function remainingbudget($id){
-        //     $stmt = $this->db->conn->prepare("SELECT amount FROM budgets WHERE id = ?");
-        //     $stmt->execute([$id]);
-        //     $amount = $stmt->fetch(PDO::FETCH_ASSOC);
-        //     return $amount;
-        // }
-
-        // public function showBudgetTable($name) {
-        //     $budgets = $this->getBudgetByName($name);
-
-            
-        //     if (empty($budgets)) {
-        //         return "<p>No budgets found.</p>";
-        //     }
-    
-        //     foreach ($budgets as $budget) {
-
-        //         echo  htmlspecialchars($budget['id']);
-        //         echo  htmlspecialchars($budget['name']);
-        //         echo htmlspecialchars($budget['amount']);
-        //         echo htmlspecialchars($budget['category']);
-        //         echo htmlspecialchars($budget['created_at']);
-                
-        //     }
-        // }
+        public function lastInsertId() {
+            return $this->db->lastInsertId();
+        }
+       
     }
 
 ?>

@@ -8,7 +8,7 @@ require_once __DIR__ .'/../models/UserModel.php';
 class AuthController {
 
      public function index() {
-        require_once __DIR__ . '/../views/register.php';
+        require_once __DIR__ . '/../../public/register.html';
      }
 
     public function signup(){
@@ -43,7 +43,7 @@ class AuthController {
                         $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
                         $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
                         $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
-                        header("Location: ".BASE_URL."/dashboard");
+                        header("Location: ".BASE_DIR."dashboard");
                         exit;
                     }else{
                         die('not set email');
@@ -57,7 +57,7 @@ class AuthController {
                         $_SESSION['user_name'] = $user->getUserByEmail($email)['name'];
                         $_SESSION['user_email'] = $user->getUserByEmail($email)['email'];
                         $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
-                        header("Location: ".BASE_URL."/dashboard");
+                        header("Location: ".BASE_DIR."dashboard");
                         exit;
                     }else{
                         die(' set email not correct');
@@ -107,7 +107,7 @@ class AuthController {
                 $_SESSION['user_role'] = $user->getUserByEmail($email)['role'];
                 // Redirect to a dashboard    
                 
-                header("Location: ".BASE_URL."/dashboard");
+                header("Location: dashboard");
                 exit;
             }
             
@@ -120,9 +120,9 @@ class AuthController {
      
         session_unset();
         session_destroy();
-        echo "Logged out successfully!";
         // Redirect to homepage or login page
         header("Location: " . BASE_URL);
+        echo "Logged out successfully!";
         exit;
     }
     

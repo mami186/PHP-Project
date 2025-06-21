@@ -1,15 +1,14 @@
 <?php
 
-require_once __DIR__ . '/../config/config.php';
+require_once __DIR__ . '/../controllers/HomeController.php';
+require_once __DIR__ . '/../controllers/AuthController.php';
+require_once __DIR__ . '/../controllers/DashboardController.php';
+require_once __DIR__ . '/../controllers/UserController.php';
+require_once __DIR__ . '/../controllers/BudgetController.php';
 
-require_once __DIR__ . '/../app/controllers/HomeController.php';
-require_once __DIR__ . '/../app/controllers/AuthController.php';
-require_once __DIR__ . '/../app/controllers/DashboardController.php';
-require_once __DIR__ . '/../app/controllers/UserController.php';
-require_once __DIR__ . '/../app/controllers/BudgetController.php';
-require_once __DIR__ . '/../app/controllers/LogController.php';
+// Define all routes
 $routes = [
-    '/' => ['HomeController', 'index'], //page => controller@method
+    '/' => ['HomeController', 'index'],
     '/register' => ['AuthController', 'index'],
     '/login' => ['AuthController', 'login'],
     '/signup' => ['AuthController', 'signup'],
@@ -23,30 +22,31 @@ $routes = [
     '/budget/create' => ['BudgetController', 'create'],
     '/budget/update' => ['BudgetController', 'update'],
     '/budget/delete' => ['BudgetController', 'delete'],
-    '/budget/view' => ['BudgetController', 'view'],
-    '/logs' => ['LogController', 'create_log'],
-    '/logpage' => ['LogController', 'index'],
-    '/create-user' => ['UserController', 'createUsr']
+    '/create-user' => ['UserController', 'createUsr'],
+    '/api/user' => ['DashboardController', 'userInfo'],
+    '/apiIndex' => ['DashboardController', 'apiIndex'],
+    '/api/budgets' => ['DashboardController', 'apiBUdgets'],
 ];
-
+// Dynamically extract and normalize path
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$path = '/' . trim(str_replace(BASE_URL, '', $uri), '/');
+$baseFolder = rtrim(dirname($_SERVER['SCRIPT_NAME']), '/\\');
 
-// Fix for root path
+// Strip the base folder from the request URI
+$path = preg_replace('#^' . preg_quote($baseFolder) . '#', '', $uri);
+$path = '/' . trim($path, '/');
+
+
+// Special case: root
 if ($path === '/' || $path === '') {
     $path = '/';
-} else {
-    $path = '/' . ltrim($path, '/');
 }
 
+// Match route
 if (array_key_exists($path, $routes)) {
     [$controller, $method] = $routes[$path];
     $instance = new $controller();
     $instance->$method();
 } else {
     http_response_code(404);
-    echo "404 Not Found" . "<br>";
-    
+    echo "404 Very Not Found";
 }
-
-?>

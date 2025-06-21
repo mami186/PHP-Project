@@ -3,9 +3,13 @@
 require_once __DIR__ . '/../models/UserModel.php';
 class UserController{
     public function index(){
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: /register');
+            exit;
+        }
         $userModel = new UserModel();
         $users = $userModel->getUsers();
-        require_once __DIR__ . '/../views/admin/user.php';
+        require_once __DIR__ . '/../../public/admin/user.html';
         
     }  
 
@@ -21,21 +25,24 @@ class UserController{
                 return;
             }
 
-            $budget = new UserModel();
+            $key = new UserModel();
 
-            if ($budget->createUser($name,$email, $adminKey, $role)) {
+            if ($key->createUser($name,$email, $adminKey, $role)) {
                 exit;
             } else {
-                die("Failed to create budget");
+                die("Failed to create key");
             }     
         }
     }
 
     public function profile(){
+        if (!isset($_SESSION['user_id'])) {
+            header('Location: register');
+            exit;
+        }
         $userModel = new UserModel();
         $user = $userModel->getUserById($_SESSION['user_id']);
-        require_once __DIR__ . '/../views/profile.php';
-        echo "Welcome to the profile page";
+        require_once __DIR__ . '/../../public/profile.html';
     }
 
     public function updateP(){

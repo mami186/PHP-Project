@@ -10,57 +10,54 @@
             $budgetModel = new BudgetModel();
             $budgets = $budgetModel->getBudgets();
 
-            require_once __DIR__ . '/../views/admin/view-budget.php';
+            require_once __DIR__ . '/../../public/admin/view-budget.html';
         }
 
         public function create() {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-                $user_id = $_POST['user_id'] ?? '';
+                
+                $user_id = $_SESSION['user_id'] ?? '';
                 $name = $_POST['name'] ?? '';
-                $amount = $_POST['amount'] ?? '';
+                $amount = $_POST['amount'] ?? null;
                 $category = $_POST['category'] ?? '';
                 $start_date = $_POST['start_date'] ?? '';
                 $end_date = $_POST['end_date'] ?? '';
                 
-
                 if (empty($name) || empty($amount) || empty($category) || empty($user_id) || empty($start_date) || empty($end_date)) {
-                    
-                    echo $name . $user_id . $amount . $category . $start_date. $end_date;
-                    die("All fields are required!");
-                    return;
+                    header("Location: " . BASE_URL . "/budget");
+                    http_response_code(400);
+                    echo json_encode(['status' => 'error', 'message' => 'All fields are required']);
+                    exit;
                 }
 
                 $budget = new BudgetModel();
 
                 if ($budget->createBudget($name, $amount, $category, $user_id, $start_date, $end_date)) {
-                    
                     header("Location: " . BASE_URL . "/budget");
-                    exit;
                 } else {
-                    die("Failed to create budget");
-                }     
+                    http_response_code(500);
+                    echo json_encode(['status' => 'error', 'message' => 'Failed to create budget']);
+                }
+            } else {
+                http_response_code(405);
+                echo json_encode(['status' => 'error', 'message' => 'Method Not Allowed']);
             }
         }
 
+
         public function update() {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+
                 $id = $_POST['id'] ?? '';
                 $name = $_POST['name'] ?? '';
-                $amount = $_POST['amount'] ?? 0;
+                $amount = $_POST['amount'] ?? null;
                 $category = $_POST['category'] ?? '';
                 $start_date = $_POST['start_date'] ?? '';
                 $end_date = $_POST['end_date'] ?? '';
 
-                echo $id . $name . $category; 
-                if (empty($id)) {
-                    die("id not set");
-                    return;
-                }
-
                 $budget = new BudgetModel();
 
                 if ($budget->updateBudget($id, $name, $amount, $category, $start_date, $end_date)) {
-                    echo "update";
                     header("Location: " . BASE_URL . "/budget");
                     exit;
                 } else {
@@ -88,17 +85,6 @@
                 }
             }
         }
-
-        // public function view() {
-            
-        //     $budget = new BudgetModel();
-        //     $name = $_POST['name']?? null; // Ensure user is logged in
-        //     if ($name) {
-        //         echo $budget->showBudgetTable($name);
-        //     } else {
-        //         echo "<p>Please log in to view your budgets.</p>";
-        //     }
-        // }
     }
 
 ?>

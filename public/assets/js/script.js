@@ -1,31 +1,12 @@
-var ctx1 = document.getElementById("lineChart").getContext("2d");
-new Chart(ctx1, {
-    type: "line",
-    data: {
-        labels: ["1", "2", "3", "4", "5"],
-        datasets: [{
-            label: "Spending Trend",
-            data: [500, 800, 1200, 900, 700],
-            borderColor: "blue",
-            backgroundColor: "lightblue"
-        }]
-    }
-});
-
-var ctx2 = document.getElementById("doughnutChart").getContext("2d");
-new Chart(ctx2, {
-    type: "doughnut",
-    data: {
-        labels: ["Savings", "Expense"],
-        datasets: [{
-            data: [60, 40],
-            backgroundColor: ["blue", "green"]
-        }]
-    }
-});
-
 document.addEventListener("DOMContentLoaded", function () {
-    
+    // Destroy existing charts if needed
+    if (Chart.getChart("lineChart")) {
+        Chart.getChart("lineChart").destroy();
+    }
+    if (Chart.getChart("doughnutChart")) {
+        Chart.getChart("doughnutChart").destroy();
+    }
+
     var ctx1 = document.getElementById("lineChart").getContext("2d");
     new Chart(ctx1, {
         type: "line",
@@ -41,7 +22,6 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 
-    
     var ctx2 = document.getElementById("doughnutChart").getContext("2d");
     new Chart(ctx2, {
         type: "doughnut",
@@ -54,6 +34,3 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
-
-  
-
